@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#readme description
+README2.md
+
 # C extensions
 *.so
 
