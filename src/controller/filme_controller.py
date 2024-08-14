@@ -1,7 +1,10 @@
-from src.service.filme_service import fetch_filmes
+from src.service.filme_service import FilmeService
 from sqlalchemy.orm import Session
 
 class FilmeController:
 
     def get_filmes(db: Session):
-        return fetch_filmes(db)
+        return FilmeService.fetch_filmes(db)
+    
+    def get_recommendations(usuario_id: int, db: Session):
+        return FilmeService.get_recommendations(usuario_id, db)
