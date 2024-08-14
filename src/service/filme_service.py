@@ -2,15 +2,24 @@ import os
 import pickle
 import pandas as pd
 from sqlalchemy.orm import Session
-from src.db.models import Avaliacao, Filme
+from src.db.models import Avaliacao, Filme, Usuario
 
 KMEANS_MODEL_PATH = os.getenv("KMEANS_PATH")
 SCALER_PATH = os.getenv("SCALER_PATH")
 USER_MOVIE_MATRIX = os.getenv("USER_MOVIE_MATRIX_PATH")
 
 class FilmeService:
+    def verify_user(usuario_id: int, db: Session):
+        usuario = db.query(Usuario).filter(Usuario.id == usuario_id).first()
+        if usuario is None:
+            raise ValueError(f"Usuário com ID {usuario_id} não encontrado.")
+        return usuario
+
     def fetch_filmes(db: Session):
-        return db.query(Filme).all()
+        filmes = db.query(Filme).all()
+        if not filmes:
+            raise ValueError("Nenhum filme encontrado.")
+        return filmes
 
     def get_recommendations(usuario_id: int, db: Session):
 
@@ -31,7 +40,7 @@ class FilmeService:
         } for a in avaliacoes])
         
         if avaliacoes_df.empty:
-            return {"message": "Nenhuma avaliação encontrada para o usuário."}
+            raise ValueError(f"Nenhuma avaliação encontrada para o usuário {usuario_id}.")
 
         # Criar um DataFrame para a avaliação do usuário
         user_evaluation = pd.DataFrame({
