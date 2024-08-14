@@ -1,0 +1,22 @@
+{
+    "usuarios": [
+        {"id": 1, "nome": "Alice", "email": "alice@example.com"},
+        {"id": 2, "nome": "Bob", "email": "bob@example.com"},
+        {"id": 3, "nome": "Charlie", "email": "charlie@example.com"}
+    ],
+    "filmes": [
+        {"id": 1, "titulo": "Inception", "genero": "Sci-Fi", "diretor": "Christopher Nolan", "ano": 2010, "atores": "Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page"},
+        {"id": 2, "titulo": "The Matrix", "genero": "Action", "diretor": "Wachowski Brothers", "ano": 1999, "atores": "Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss"},
+        {"id": 3, "titulo": "Interstellar", "genero": "Sci-Fi", "diretor": "Christopher Nolan", "ano": 2014, "atores": "Matthew McConaughey, Anne Hathaway, Jessica Chastain"},
+        {"id": 4, "titulo": "The Godfather", "genero": "Crime", "diretor": "Francis Ford Coppola", "ano": 1972, "atores": "Marlon Brando, Al Pacino, James Caan"},
+        {"id": 5, "titulo": "Pulp Fiction", "genero": "Crime", "diretor": "Quentin Tarantino", "ano": 1994, "atores": "John Travolta, Uma Thurman, Samuel L. Jackson"}
+    ],
+    "avaliacoes": [
+        {"id": 1, "usuario_id": 1, "filme_id": 1, "avaliacao": 5.0},
+        {"id": 2, "usuario_id": 1, "filme_id": 2, "avaliacao": 4.5},
+        {"id": 3, "usuario_id": 2, "filme_id": 1, "avaliacao": 4.0},
+        {"id": 4, "usuario_id": 2, "filme_id": 3, "avaliacao": 5.0},
+        {"id": 5, "usuario_id": 3, "filme_id": 4, "avaliacao": 4.5},
+        {"id": 6, "usuario_id": 3, "filme_id": 5, "avaliacao": 4.0}
+    ]
+}

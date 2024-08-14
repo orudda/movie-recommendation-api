@@ -12,7 +12,7 @@ class Usuario(Base):
     nome = Column(String, index=True)
     email = Column(String, unique=True, index=True)
 
-    historico = relationship("Historico", back_populates="usuario")
+    avaliacoes = relationship("Avaliacao", back_populates="usuario")
 
 class Filme(Base):
     __tablename__ = 'filmes'
@@ -22,17 +22,17 @@ class Filme(Base):
     genero = Column(String, index=True)
     diretor = Column(String)
     ano = Column(Integer)
+    atores = Column(String)
 
-    historico = relationship("Historico", back_populates="filme")
+    avaliacoes = relationship("Avaliacao", back_populates="filme")
 
-class Historico(Base):
-    __tablename__ = 'historico'
+class Avaliacao(Base):
+    __tablename__ = 'avaliacoes'
     
     id = Column(Integer, primary_key=True, index=True)
     usuario_id = Column(Integer, ForeignKey('usuarios.id'))
     filme_id = Column(Integer, ForeignKey('filmes.id'))
-    data_visualizacao = Column(DateTime, default=datetime.utcnow)
     avaliacao = Column(Float, nullable=True)
     
-    usuario = relationship("Usuario", back_populates="historico")
-    filme = relationship("Filme", back_populates="historico")
+    usuario = relationship("Usuario", back_populates="avaliacoes")
+    filme = relationship("Filme", back_populates="avaliacoes")
