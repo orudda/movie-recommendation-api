@@ -12,6 +12,13 @@ test.db
 # C extensions
 *.so
 
+# model kmeans 
+user_movie_matrix.csv
+scaler.pkl
+mock_data.csv
+kmeans_model.pkl
+kmeans_filmes_clusters.png
+
 # Distribution / packaging
 .Python
 build/
