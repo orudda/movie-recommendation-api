@@ -13,6 +13,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar o restante do código da aplicação para o diretório de trabalho
 COPY . .
 
+# Treinar o modelo antes de iniciar a API
+RUN python train_model.py
+
 # Copiar o script de testes para o container
 # COPY run_tests.sh .
 
@@ -26,5 +29,4 @@ ENV PORT=8000
 EXPOSE 8000
 
 # Definir o comando padrão para executar a aplicação
-# CMD ["python", "app.py"]
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
