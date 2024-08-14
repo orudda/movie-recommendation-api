@@ -1,3 +1,4 @@
+import os
 import pickle
 import pandas as pd
 from sqlalchemy.orm import Session
@@ -7,13 +8,18 @@ def fetch_filmes(db: Session):
     return db.query(Filme).all()
 
 def get_recommendations(usuario_id: int, db: Session):
+
+    KMEANS_MODEL_PATH = os.getenv("KMEANS_PATH")
+    SCALER_PATH = os.getenv("SCALER_PATH")
+    USER_MOVIE_MATRIX = os.getenv("USER_MOVIE_MATRIX_PATH")
+
     # Carregar o modelo treinado, o scaler, e a matriz de usuário-filme para formato
-    with open('kmeans_model.pkl', 'rb') as f:
+    with open(KMEANS_MODEL_PATH, 'rb') as f:
         kmeans = pickle.load(f)
-    with open('scaler.pkl', 'rb') as f:
+    with open(SCALER_PATH, 'rb') as f:
         scaler = pickle.load(f)
     
-    user_movie_matrix = pd.read_csv('user_movie_matrix.csv', index_col=0)
+    user_movie_matrix = pd.read_csv(USER_MOVIE_MATRIX, index_col=0)
     
     # Obter as avaliações do usuário
     avaliacoes = db.query(Avaliacao).filter(Avaliacao.usuario_id == usuario_id).all()
