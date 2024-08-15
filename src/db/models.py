@@ -21,7 +21,6 @@ class Filme(Base):
     titulo = Column(String, index=True)
     genero = Column(String, index=True)
     diretor = Column(String)
-    ano = Column(Integer)
     atores = Column(String)
 
     avaliacoes = relationship("Avaliacao", back_populates="filme")
