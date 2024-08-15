@@ -59,6 +59,26 @@ Usuário contem nome e email; Filmes contém titulo, diretor, genero e atores; A
 
 O treinamento do modelo ocorre logo que a aplicação é inicializada utilizando Docker. Em produção, eu proporia que esse modelo fosse executado periodicamente. De forma alguma ele deve ser executado junto com a API, pois isso adicionaria latência à aplicação. Dessa forma, os serviços devem ser desacoplados.
 
-Eu utilizei alguns dados mockados para execução desse trabalho. Eu defini que o número de clusters do modelo é igual a 5 a fim de tentar definir cada cluster a um usuário. Depois eu treinei o modelo tentando separar cada filme em um cluster diferente e para fazer isso foi utilizado uma técnica de redução de dimensionalidade chamada PCA como na imagem abaixo. (não se apegue aos valores das linhas e colunas do PCA, eles são não representativo).
+Eu utilizei alguns dados mockados para execução desse trabalho. Eu defini que o número de clusters do modelo é igual a 5 a fim de tentar definir cada cluster a um usuário (isso não necessariamente deve acontecer). Depois eu treinei o modelo tentando separar cada filme em um cluster diferente. Para fazer isso foi utilizado uma técnica de redução de dimensionalidade chamada PCA como na imagem abaixo. (não se apegue aos valores das linhas e colunas do PCA, eles são não representativos).
 
 ![Texto Alternativo](kmeans_filmes_clusters.png)
+
+## Resultado dados Mockados 
+
+
+Para cada usuário foi definido que a api retornaria os 5 primeiros filmes recomendados e para cada usuário os resultados foram os seguintes:
+
+- **Usuário 1:** Anchorman(comédia), Forrest Gump(drama), The Big Lebowski(comédia), Guardians of the Galaxy(ação), The Grand Budapest Hotel(comédia)
+
+- **Usuário 2:** Pride and Prejudice(romance), La La Land(romance), Superbad(comédia), The Hangover(comédia), The Godfather(drama)
+
+- **Usuário 3:** Inception(sci-fi), The Matrix(sci-fi), Die Hard(ação), The Shawshank Redemption(drama), Joker(drama)
+
+- **Usuário 4:** Blade Runner(sci-fi), Mad Max(ação), Anchorman(comédia), Forrest Gump(drama), The Grand Budapest Hotel(comédia)
+
+- **Usuário 5:** The Matrix(sci-fi), The Notebook(romance), Superbad(comédia), The Shawshank Redemption(drama), The Social Network(drama)
+
+
+É possível notar um padrão claro e a preferência de cada usuário (esse comportamento foi reforçado no momento de gerar dados aleatórios com o modelo generativo). O primeiro usuário tem uma preferência por filmes de comédia assim como o segundo prefere romances.
+
+Em uma possível continuidade desse trabalho eu reproduziria mais dados para treinar o modelo e aumentaria o número de clusters para ter melhor visualização do comportamento do KMeans. No entanto, mesmo com poucos dados, foi possível ter um resultado positivo.
