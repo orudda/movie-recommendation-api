@@ -8,17 +8,22 @@ KMEANS_MODEL_PATH = os.getenv("KMEANS_PATH")
 SCALER_PATH = os.getenv("SCALER_PATH")
 USER_MOVIE_MATRIX = os.getenv("USER_MOVIE_MATRIX_PATH")
 
+class ServiceError(ValueError):
+    def __init__(self, message, status_code):
+        super().__init__(message)
+        self.status_code = status_code
+
 class FilmeService:
     def verify_user(usuario_id: int, db: Session):
         usuario = db.query(Usuario).filter(Usuario.id == usuario_id).first()
         if usuario is None:
-            raise ValueError(f"Usuário com ID {usuario_id} não encontrado.")
+            raise ServiceError(f"Usuário com ID {usuario_id} não encontrado.", 404)
         return usuario
 
     def fetch_filmes(db: Session):
         filmes = db.query(Filme).all()
         if not filmes:
-            raise ValueError("Nenhum filme encontrado.")
+            raise ServiceError("Nenhum filme encontrado.", 204)
         return filmes
 
     def get_recommendations(usuario_id: int, db: Session):
@@ -40,7 +45,7 @@ class FilmeService:
         } for a in avaliacoes])
         
         if avaliacoes_df.empty:
-            raise ValueError(f"Nenhuma avaliação encontrada para o usuário {usuario_id}.")
+            raise ServiceError(f"Nenhuma avaliação encontrada para o usuário {usuario_id}.", 204)
 
         # Criar um DataFrame para a avaliação do usuário
         user_evaluation = pd.DataFrame({
@@ -65,7 +70,7 @@ class FilmeService:
         cluster_center_df = pd.DataFrame(cluster_center, index=user_movie_matrix.columns).T
 
         #carregar filmes
-        filmes = db.query(Filme).all()
+        filmes = FilmeService.fetch_filmes(db)
         filmes_data = [{
             'id': filme.id,
             'titulo': filme.titulo,

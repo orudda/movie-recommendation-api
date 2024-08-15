@@ -1,5 +1,6 @@
 from fastapi import HTTPException
-from src.service.filme_service import FilmeService
+from fastapi.responses import JSONResponse
+from src.service.filme_service import FilmeService, ServiceError
 from sqlalchemy.orm import Session
 
 class FilmeController:
@@ -17,6 +18,10 @@ class FilmeController:
         try:
             FilmeService.verify_user(usuario_id, db)
             return FilmeService.get_recommendations(usuario_id, db)
-        except ValueError as e:
-            raise HTTPException(status_code=400, detail=str(e))
+        except ServiceError as e:
+            return JSONResponse(
+                content={"error": str(e)},
+                status_code=e.status_code
+            )
+        
         

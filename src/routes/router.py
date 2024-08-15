@@ -12,4 +12,4 @@ def get_filmes(db: Session = Depends(get_db)):
 
 @main_router.get("/filmes/{usuario_id}/recomendacoes")
 def recommend_filmes(usuario_id: int, db: Session = Depends(get_db)):
-    return FilmeService.get_recommendations(usuario_id, db)
+    return FilmeController.get_recommendations(usuario_id, db)
